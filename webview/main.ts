@@ -254,11 +254,13 @@ function fitToViewport(): void {
 
   const { width, height } = getSvgDimensions(svg);
   const viewportRect = diagram.getBoundingClientRect();
+  const horizontalPadding = 24;
+  const verticalPadding = 12;
 
   const fittedScale = clamp(
     Math.min(
-      Math.max((viewportRect.width - 48) / width, 0.1),
-      Math.max((viewportRect.height - 48) / height, 0.1),
+      Math.max((viewportRect.width - horizontalPadding * 2) / width, 0.1),
+      Math.max((viewportRect.height - verticalPadding * 2) / height, 0.1),
       1
     ),
     MIN_SCALE,
@@ -267,7 +269,7 @@ function fitToViewport(): void {
 
   scale = fittedScale;
   translateX = Math.max((viewportRect.width - width * scale) / 2, 0);
-  translateY = Math.max((viewportRect.height - height * scale) / 2, 0);
+  translateY = verticalPadding;
   applyTransform();
 }
 

@@ -346,12 +346,14 @@ export class MermaidPreviewController implements vscode.Disposable {
       }
 
       main {
-        overflow: auto;
-        padding: 1rem;
+        min-height: 0;
+        overflow: hidden;
+        padding: 0.75rem;
       }
 
       .frame {
-        min-height: calc(100vh - 4.4rem);
+        height: 100%;
+        min-height: 0;
         border: 1px solid color-mix(in srgb, var(--vscode-panel-border) 80%, transparent);
         border-radius: 18px;
         background: color-mix(in srgb, var(--vscode-editorWidget-background) 92%, transparent);
@@ -360,9 +362,10 @@ export class MermaidPreviewController implements vscode.Disposable {
       }
 
       #diagram {
-        min-height: calc(100vh - 7rem);
-        padding: 1.5rem;
-        overflow: hidden;
+        height: 100%;
+        min-height: 0;
+        padding: 0.75rem;
+        overflow: auto;
         cursor: grab;
         touch-action: none;
       }
