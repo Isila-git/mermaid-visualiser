@@ -112,13 +112,14 @@ diagram?.addEventListener('pointercancel', endPan);
 diagram?.addEventListener(
   'wheel',
   event => {
-    if (!event.ctrlKey && !event.altKey && !event.metaKey) {
+    if (!canvas?.querySelector('svg') || !diagram) {
       return;
     }
 
     event.preventDefault();
+    const viewportRect = diagram.getBoundingClientRect();
     const direction = event.deltaY < 0 ? ZOOM_FACTOR : 1 / ZOOM_FACTOR;
-    zoomAt(direction, event.offsetX, event.offsetY);
+    zoomAt(direction, event.clientX - viewportRect.left, event.clientY - viewportRect.top);
   },
   { passive: false }
 );
@@ -201,6 +202,10 @@ function renderMessage(kind: 'error' | 'placeholder', text: string): void {
   scale = 1;
   translateX = 0;
   translateY = 0;
+  if (diagram) {
+    diagram.scrollLeft = 0;
+    diagram.scrollTop = 0;
+  }
   applyTransform();
 }
 
@@ -270,6 +275,8 @@ function fitToViewport(): void {
   scale = fittedScale;
   translateX = Math.max((viewportRect.width - width * scale) / 2, 0);
   translateY = verticalPadding;
+  diagram.scrollLeft = 0;
+  diagram.scrollTop = 0;
   applyTransform();
 }
 
@@ -278,20 +285,21 @@ function zoomAt(factor: number, focusX?: number, focusY?: number): void {
     return;
   }
 
-  const viewportRect = diagram.getBoundingClientRect();
-  const anchorX = focusX ?? viewportRect.width / 2;
-  const anchorY = focusY ?? viewportRect.height / 2;
+  const anchorX = focusX ?? diagram.clientWidth / 2;
+  const anchorY = focusY ?? diagram.clientHeight / 2;
+  const contentX = diagram.scrollLeft + anchorX;
+  const contentY = diagram.scrollTop + anchorY;
   const nextScale = clamp(scale * factor, MIN_SCALE, MAX_SCALE);
 
   if (nextScale === scale) {
     return;
   }
 
-  const worldX = (anchorX - translateX) / scale;
-  const worldY = (anchorY - translateY) / scale;
+  const worldX = (contentX - translateX) / scale;
+  const worldY = (contentY - translateY) / scale;
   scale = nextScale;
-  translateX = anchorX - worldX * scale;
-  translateY = anchorY - worldY * scale;
+  translateX = contentX - worldX * scale;
+  translateY = contentY - worldY * scale;
   manualView = true;
   applyTransform();
 }

@@ -365,7 +365,7 @@ export class MermaidPreviewController implements vscode.Disposable {
         height: 100%;
         min-height: 0;
         padding: 0.75rem;
-        overflow: auto;
+        overflow: hidden;
         cursor: grab;
         touch-action: none;
       }
