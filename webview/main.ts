@@ -178,6 +178,7 @@ async function render(payload: PreviewPayload): Promise<void> {
     );
 
     canvas!.innerHTML = renderResult.svg;
+    syncCanvasToSvgSize();
     renderResult.bindFunctions?.(canvas!);
     if (!manualView) {
       requestAnimationFrame(() => fitToViewport());
@@ -228,6 +229,21 @@ function handleAction(action: PreviewControlAction): void {
 
 function applyTransform(): void {
   canvas!.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+}
+
+function syncCanvasToSvgSize(): void {
+  const svg = canvas?.querySelector('svg');
+  if (!(svg instanceof SVGSVGElement) || !canvas) {
+    return;
+  }
+
+  const { width, height } = getSvgDimensions(svg);
+  svg.setAttribute('width', `${width}`);
+  svg.setAttribute('height', `${height}`);
+  svg.style.width = `${width}px`;
+  svg.style.height = `${height}px`;
+  canvas.style.width = `${width}px`;
+  canvas.style.height = `${height}px`;
 }
 
 function fitToViewport(): void {
