@@ -1,0 +1,61 @@
+{
+  "Flowchart": {
+    "prefix": "flowchart",
+    "body": [
+      "flowchart TD",
+      "    ${1:Start} --> ${2:Next}",
+      "    ${2:Next} --> ${3:Done}"
+    ],
+    "description": "Insert a basic Mermaid flowchart"
+  },
+  "Sequence Diagram": {
+    "prefix": "sequence",
+    "body": [
+      "sequenceDiagram",
+      "    participant ${1:Client}",
+      "    participant ${2:Server}",
+      "    ${1:Client}->>${2:Server}: ${3:Request}",
+      "    ${2:Server}-->>${1:Client}: ${4:Response}"
+    ],
+    "description": "Insert a basic Mermaid sequence diagram"
+  },
+  "Class Diagram": {
+    "prefix": "classdiag",
+    "body": [
+      "classDiagram",
+      "    class ${1:Order} {",
+      "        +String ${2:id}",
+      "        +submit()",
+      "    }",
+      "    class ${3:Customer}",
+      "    ${3:Customer} --> ${1:Order} : places"
+    ],
+    "description": "Insert a basic Mermaid class diagram"
+  },
+  "State Diagram": {
+    "prefix": "state",
+    "body": [
+      "stateDiagram-v2",
+      "    [*] --> ${1:Idle}",
+      "    ${1:Idle} --> ${2:Running}: ${3:Start}",
+      "    ${2:Running} --> [*]: ${4:Stop}"
+    ],
+    "description": "Insert a basic Mermaid state diagram"
+  },
+  "ER Diagram": {
+    "prefix": "erdiag",
+    "body": [
+      "erDiagram",
+      "    ${1:CUSTOMER} ||--o{ ${2:ORDER} : places",
+      "    ${1:CUSTOMER} {",
+      "        string id",
+      "        string name",
+      "    }",
+      "    ${2:ORDER} {",
+      "        string id",
+      "        date createdAt",
+      "    }"
+    ],
+    "description": "Insert a basic Mermaid ER diagram"
+  }
+}

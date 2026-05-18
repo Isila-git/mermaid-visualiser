@@ -1,0 +1,180 @@
+{
+  "name": "mermaid-visualiser",
+  "displayName": "Mermaid Visualiser",
+  "description": "Local Mermaid diagram visualizer for VS Code",
+  "version": "0.0.1",
+  "publisher": "localdev",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Visualization"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "mermaidVisualiser.openPreview",
+        "title": "Mermaid Visualiser: Open Preview",
+        "category": "Mermaid Visualiser"
+      },
+      {
+        "command": "mermaidVisualiser.zoomIn",
+        "title": "Mermaid Visualiser: Zoom In",
+        "category": "Mermaid Visualiser"
+      },
+      {
+        "command": "mermaidVisualiser.zoomOut",
+        "title": "Mermaid Visualiser: Zoom Out",
+        "category": "Mermaid Visualiser"
+      },
+      {
+        "command": "mermaidVisualiser.resetView",
+        "title": "Mermaid Visualiser: Reset View",
+        "category": "Mermaid Visualiser"
+      },
+      {
+        "command": "mermaidVisualiser.exportSvg",
+        "title": "Mermaid Visualiser: Export SVG",
+        "category": "Mermaid Visualiser"
+      },
+      {
+        "command": "mermaidVisualiser.exportPng",
+        "title": "Mermaid Visualiser: Export PNG",
+        "category": "Mermaid Visualiser"
+      }
+    ],
+    "languages": [
+      {
+        "id": "mermaid",
+        "aliases": [
+          "Mermaid",
+          "mermaid"
+        ],
+        "extensions": [
+          ".mmd",
+          ".mermaid"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "mermaid",
+        "scopeName": "source.mermaid",
+        "path": "./syntaxes/mermaid.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "mermaid",
+        "path": "./snippets/mermaid.json"
+      }
+    ],
+    "markdown.markdownItPlugins": true,
+    "markdown.previewScripts": [
+      "./dist/markdownPreview.js"
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "mermaidVisualiser.openPreview"
+        },
+        {
+          "command": "mermaidVisualiser.zoomIn"
+        },
+        {
+          "command": "mermaidVisualiser.zoomOut"
+        },
+        {
+          "command": "mermaidVisualiser.resetView"
+        },
+        {
+          "command": "mermaidVisualiser.exportSvg"
+        },
+        {
+          "command": "mermaidVisualiser.exportPng"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "mermaidVisualiser.openPreview",
+          "when": "resourceLangId == mermaid || resourceExtname == .mmd || resourceExtname == .mermaid",
+          "group": "navigation"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "mermaidVisualiser.openPreview",
+          "when": "resourceLangId == mermaid || resourceExtname == .mmd || resourceExtname == .mermaid",
+          "group": "navigation"
+        },
+        {
+          "command": "mermaidVisualiser.exportSvg",
+          "when": "resourceLangId == mermaid || resourceExtname == .mmd || resourceExtname == .mermaid",
+          "group": "navigation@1"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "mermaidVisualiser.openPreview",
+          "when": "resourceExtname == .mmd || resourceExtname == .mermaid",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Mermaid Visualiser",
+      "properties": {
+        "mermaidVisualiser.lightTheme": {
+          "type": "string",
+          "enum": [
+            "base",
+            "default",
+            "forest",
+            "neutral"
+          ],
+          "default": "default",
+          "description": "Mermaid theme used when the active VS Code color theme is light."
+        },
+        "mermaidVisualiser.darkTheme": {
+          "type": "string",
+          "enum": [
+            "base",
+            "dark",
+            "forest",
+            "neutral"
+          ],
+          "default": "dark",
+          "description": "Mermaid theme used when the active VS Code color theme is dark or high contrast."
+        },
+        "mermaidVisualiser.markdownLanguages": {
+          "type": "array",
+          "default": [
+            "mermaid"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "description": "Language ids in Markdown fenced blocks that should render as Mermaid diagrams in the Markdown preview."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./ && node ./scripts/build-webview.mjs",
+    "watch": "tsc -watch -p ./",
+    "vscode:prepublish": "npm run compile"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.21",
+    "@types/vscode": "^1.100.0",
+    "esbuild": "^0.25.4",
+    "mermaid": "^11.12.0",
+    "typescript": "^5.8.3"
+  }
+}

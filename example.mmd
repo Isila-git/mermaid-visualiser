@@ -1,0 +1,5 @@
+flowchart TD
+    Start([Open Extension Host]) --> OpenFile[Open example.mmd]
+    OpenFile --> RunCommand[Run Mermaid Visualiser: Open Preview]
+    RunCommand --> LivePreview{Live preview visible}
+    LivePreview -->|Yes| Done([Edit diagram and watch updates])
