@@ -54,5 +54,5 @@ Deferred for later:
 
 ## Quick test files
 
-- Open [example.mmd](c:\Users\imudiyanselage\OneDrive - Stantec\Desktop\Workspace\Mermaid Chart\example.mmd) and run `Mermaid Visualiser: Open Preview`.
-- Open [example.md](c:\Users\imudiyanselage\OneDrive - Stantec\Desktop\Workspace\Mermaid Chart\example.md) and use `Markdown: Open Preview to the Side` to verify fenced-block rendering.
+- Open [example.mmd](./example.mmd) and run `Mermaid Visualiser: Open Preview`.
+- Open [example.md](./example.md) and use `Markdown: Open Preview to the Side` to verify fenced-block rendering.
